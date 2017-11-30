@@ -5,10 +5,11 @@ A short hello world introducing [AWS SAM](https://github.com/awslabs/serverless-
  * `$ aws` configured & running
  * `$ make`
  * `$ jq`
+ * `$ npm install -g aws-sam-local` 
 
 # development
 
-Consult the Makefile
+* `$ make help`
 
 # more info / resources
 
