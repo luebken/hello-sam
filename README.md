@@ -1,4 +1,6 @@
-A short hello world introducing [AWS SAM](https://github.com/awslabs/serverless-application-model) Severless Application Model.
+# hello-sam
+
+A small, self-contained [AWS SAM](https://github.com/awslabs/serverless-application-model) hello-world. Uses make to automate and document everything.
 
 # prerequisites
 
@@ -13,5 +15,4 @@ A short hello world introducing [AWS SAM](https://github.com/awslabs/serverless-
 
 # more info / resources
 
-* [SAM AWS Online Tech Talk](https://www.youtube.com/watch?v=1k3XqBA2hYM)
-
+* [SAM AWS Online Tech Talk](https://www.youtube.com/watch?v=1k3XqBA2hYM) 
