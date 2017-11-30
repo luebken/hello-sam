@@ -11,7 +11,7 @@ A small, self-contained [AWS SAM](https://github.com/awslabs/serverless-applicat
 
 # development
 
-* `$ make help`
+* `$ make help` and consult the [Makefile](Makefile).
 
 # more info / resources
 
