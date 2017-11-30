@@ -8,6 +8,9 @@ Resources:
       CodeUri: .
       Handler: index.handler
       Runtime: nodejs6.10
+      Environment:
+        Variables:
+          IOPIPE_TOKEN: tbd #via environment
       Description: A starter AWS Lambda function.
       Events:
         GetHtmlApi:

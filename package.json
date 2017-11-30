@@ -1,0 +1,13 @@
+{
+  "name": "hello-sam",
+  "version": "1.0.0",
+  "description": "A small, self-contained [AWS SAM](https://github.com/awslabs/serverless-application-model) hello-world. Uses make to automate and document everything.",
+  "dependencies": {
+    "iopipe": "^1.2.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luebken/hello-sam.git"
+  }
+}
