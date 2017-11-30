@@ -16,11 +16,13 @@ package: prepare-s3 ## Creates deployment zip file, uploads to S3, updates templ
    	--output-template-file serverless-output.yaml \
    	--s3-bucket $(s3-bucket-name)
 
-deploy: package ## Deploys the stack. (Cloudformation CreateChangeSet, ExecuteChangeSet). Visit https://console.aws.amazon.com/cloudformation/ for updates.
+deploy: package ## Deploys the stack. (Cloudformation CreateChangeSet, ExecuteChangeSet).
 	aws cloudformation deploy \
    	--template-file serverless-output.yaml \
    	--stack-name $(stack-name) \
    	--capabilities CAPABILITY_IAM
+	@echo "\nVisit https://console.aws.amazon.com/cloudformation/ for updates on the deployment."
+	@echo "\n run "make curl" to test the endpoint."
 
 curl: ## Test the application via curl.
 	curl https://$(API_ID).execute-api.$(AWS_REGION).amazonaws.com/Prod/test
