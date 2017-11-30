@@ -2,12 +2,24 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: A starter AWS Lambda function.
 Resources:
-  helloworld:
+  GetHtmlFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
+      CodeUri: .
       Handler: index.handler
       Runtime: nodejs6.10
-      CodeUri: .
       Description: A starter AWS Lambda function.
-      MemorySize: 128
-      Timeout: 3
+      Events:
+        GetHtmlApi:
+          Type: Api
+          Properties: 
+            Path: /{proxy+}
+            Method: Any
+  ConfigLambdaPermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn:
+    - GetHtmlFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref GetHtmlFunction
+      Principal: apigateway.amazonaws.com

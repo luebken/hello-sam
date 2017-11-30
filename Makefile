@@ -10,8 +10,12 @@ package:
    	--output-template-file serverless-output.yaml \
    	--s3-bucket $(bucket-name)
 
-deploy:
+deploy: # deploys the stack. see https://console.aws.amazon.com/cloudformation/
 	aws cloudformation deploy \
    	--template-file serverless-output.yaml \
    	--stack-name $(stack-name) \
    	--capabilities CAPABILITY_IAM
+
+delete:
+	aws cloudformation delete-stack \
+   	--stack-name $(stack-name)
