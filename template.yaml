@@ -9,6 +9,10 @@ Resources:
       Handler: index.handler
       Runtime: nodejs6.10
       Description: A starter AWS Lambda function.
+      Policies: AmazonDynamoDBFullAccess
+      Environment: 
+        Variables: 
+          TABLE_NAME: !Ref Table
       Events:
         GetHtmlApi:
           Type: Api
@@ -25,3 +29,10 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !Ref GetHtmlFunction
       Principal: apigateway.amazonaws.com
+  # Not working locally
+  Table:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String

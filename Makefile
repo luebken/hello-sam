@@ -1,5 +1,5 @@
 #! /usr/bin/make -f
-s3-bucket-name = INSERTBUCKETNAME
+s3-bucket-name = test-mdl2
 
 stack-name = hello-sam
 AWS_REGION = us-east-1
@@ -9,6 +9,14 @@ API_ID := $(shell aws apigateway get-rest-apis --query "items[?name==\`$(stack-n
 
 prepare-s3: ## Create an S3 bucket.
 	aws s3 mb s3://$(s3-bucket-name)
+
+prepare-local-dynamo:
+	aws dynamodb create-table \
+	--endpoint-url http://localhost:8000 \
+	--table-name $(TABLE_NAME) \
+	--attribute-definitions AttributeName=id,AttributeType=S \
+	--key-schema AttributeName=id,KeyType=HASH \
+	--provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
 package: prepare-s3 ## Creates deployment zip file, uploads to S3, updates template.
 	aws cloudformation package \
@@ -25,17 +33,23 @@ deploy: package ## Deploys the stack. (Cloudformation CreateChangeSet, ExecuteCh
 	@echo "\n run "make curl" to test the endpoint."
 
 curl: ## Test the application via curl.
-	curl https://$(API_ID).execute-api.$(AWS_REGION).amazonaws.com/Prod/test
+	curl https://$(API_ID).execute-api.$(AWS_REGION).amazonaws.com/Prod/test?message=HeyHowAreYou&mdl=m01
 
 delete: ## Deletes the whole stack.
 	aws cloudformation delete-stack \
    	--stack-name $(stack-name)
 
+local-start-dynamo:
+	@echo "open http://localhost:8000/shell/ after dynamo has started"
+	docker run -p 8000:8000 dwmkerr/dynamodb
+
 local-start-api: ## Start the API locally.
+	echo "currently not supported" https://github.com/awslabs/aws-sam-local/issues/105
 	sam local start-api
 
 local-invoke: ## Invoke the function locally.
-	echo '{"message": "Hey, are you there?" }' | sam local invoke GetHtmlFunction
+	echo "currently not supported"
+	echo '{"queryStringParameters" : {"message": "Hey, are you there?" }}' | sam local invoke GetHtmlFunction
 
 	# via http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help: ##Shows help message
